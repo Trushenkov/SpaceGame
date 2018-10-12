@@ -35,7 +35,7 @@ public class GameScreen implements Screen {
     GameScreen(final SpaceGame spaceGame) {
 
         this.spaceGame = spaceGame;
-        background = new Texture("background_game_screen.png");
+        background = new Texture("space.png");
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 480, 800);
