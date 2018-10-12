@@ -25,7 +25,7 @@ public class GameOverScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 480, 800);
 
-        background = new Texture("background_game_screen.png");
+        background = new Texture("space.png");
         gameOverImage = new Texture("GAMEOVER.png");
         tryAgainImage = new Texture("TRYAGAIN.png");
     }
