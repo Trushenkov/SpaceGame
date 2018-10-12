@@ -24,7 +24,7 @@ public class MainMenuScreen implements Screen {
     MainMenuScreen(SpaceGame spaceGame) {
         this.spaceGame = spaceGame;
 
-        backgroundForMenu = new Texture("background_game_screen.png");
+        backgroundForMenu = new Texture("space.png");
         playButton = new Texture("PLAY.png");
         camera = new OrthographicCamera();
         camera.setToOrtho(false, WIDTH, HEIGHT);
