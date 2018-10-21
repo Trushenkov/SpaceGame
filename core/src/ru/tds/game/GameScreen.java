@@ -1,7 +1,6 @@
 package ru.tds.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -21,7 +20,11 @@ import java.util.Iterator;
  */
 public class GameScreen implements Screen {
 
-    private final SpaceGame spaceGame;
+    //constants
+    private static final int SCREEN_WIDTH = 480;
+    private static final int SHIP_WIDTH = 64;
+
+    private SpaceGame spaceGame;
     private OrthographicCamera camera;
     private Texture meteoritImage;
     private Texture planeImage;
@@ -30,22 +33,22 @@ public class GameScreen implements Screen {
     private Array<Rectangle> asteroids;
     private long lastDropTime;
     private Texture background;
-    private int distance;
+    private int time;
+    private float currentTime = 0;
 
-    GameScreen(final SpaceGame spaceGame) {
+    GameScreen(SpaceGame spaceGame){
 
         this.spaceGame = spaceGame;
-        background = new Texture("space.png");
+        background = new Texture("background2.jpg");
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 480, 800);
 
         meteoritImage = new Texture("meteorit.png");
-
         planeImage = new Texture("space_shuttle.png");
 
         ship = new Rectangle();
-        ship.x = 480 / 2 - 64 / 2;
+        ship.x = SCREEN_WIDTH / 2 - SHIP_WIDTH / 2;
         ship.y = 50;
         ship.width = 64;
         ship.height = 64;
@@ -58,7 +61,6 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         camera.update();
@@ -66,26 +68,21 @@ public class GameScreen implements Screen {
         spaceGame.spriteBatch.setProjectionMatrix(camera.combined);
         spaceGame.spriteBatch.begin();
         spaceGame.spriteBatch.draw(background, 0, 0);
-        spaceGame.font.draw(spaceGame.spriteBatch,"SCORE: " + distance, 10,20);
+        spaceGame.font.draw(spaceGame.spriteBatch, "Your time: " + time + " sec.", 10, 20);
         spaceGame.spriteBatch.draw(planeImage, ship.x, ship.y);
-        for (Rectangle asteroid : asteroids) {
-            spaceGame.spriteBatch.draw(meteoritImage, asteroid.x, asteroid.y);
+        for (Rectangle met : asteroids) {
+            spaceGame.spriteBatch.draw(meteoritImage, met.x, met.y);
         }
         spaceGame.spriteBatch.end();
 
-        //управления для Android
+        //управление для Android
         if (Gdx.input.isTouched()) {
             touchPosition.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(touchPosition);
+
             ship.x = touchPosition.x - 64 / 2;
             ship.y = touchPosition.y;
         }
-
-        //управление для Desktop
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) ship.x -= 200 * Gdx.graphics.getDeltaTime();
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) ship.x += 200 * Gdx.graphics.getDeltaTime();
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) ship.y += 200 * Gdx.graphics.getDeltaTime();
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) ship.y -= 200 * Gdx.graphics.getDeltaTime();
 
         //для того, чтобы не вылетать за пределы экрана
         if (ship.x < 0) ship.x = 0;
@@ -104,14 +101,29 @@ public class GameScreen implements Screen {
                 spaceGame.setScreen(new GameOverScreen(spaceGame));
                 dispose();
             }
+            if (time > 15){
+                rectangle.y -= 305 * Gdx.graphics.getDeltaTime();
+            }
         }
-        if (TimeUtils.nanoTime() - Gdx.graphics.getDeltaTime() > 2000000000) {
-            distance++;
+
+        incrementTimeVariable();
+    }
+
+    /**
+     * Метод для икрементирования переменной счетчика времени каждую секунду
+     */
+    private void incrementTimeVariable(){
+        currentTime += Gdx.graphics.getRawDeltaTime();
+        float periodOfTime = 1;
+        if (currentTime > periodOfTime){
+            currentTime -= periodOfTime;
+            time++;
+            spaceGame.setTimeOfPlayerLive(time);
         }
     }
 
     /**
-     * Метод для размещения астероидов
+     * Метод для размещения метеоритов
      */
     private void spawnAsteroids() {
         Rectangle asteroid = new Rectangle();
@@ -127,7 +139,6 @@ public class GameScreen implements Screen {
     public void dispose() {
         planeImage.dispose();
         meteoritImage.dispose();
-        touchPosition.setZero();
     }
 
     @Override
