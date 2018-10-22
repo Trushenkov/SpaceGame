@@ -101,7 +101,10 @@ public class GameScreen implements Screen {
                 dispose();
             }
             if (time > 15){
-                rectangle.y -= 305 * Gdx.graphics.getDeltaTime();
+                rectangle.y -= 50 * Gdx.graphics.getDeltaTime();
+            }
+            if (time > 25){
+                rectangle.y -= 50 * Gdx.graphics.getDeltaTime();
             }
         }
 
