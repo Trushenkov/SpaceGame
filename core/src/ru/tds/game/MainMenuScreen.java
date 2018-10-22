@@ -25,7 +25,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
  */
 public class MainMenuScreen implements Screen {
 
-    private SpaceGame spaceGame;
+    private final SpaceGame spaceGame;
     private Stage stage;
     private TextureAtlas atlas;
     private Skin skin;
