@@ -86,7 +86,7 @@ public class GameScreen implements Screen {
         //для того, чтобы не вылетать за пределы экрана
         if (ship.x < 0) ship.x = 0;
         if (ship.x > 480 - 64) ship.x = 480 - 64;
-        if (ship.y > 800) ship.y = 800;
+        if (ship.y > 800-64) ship.y = 800 - 64;
         if (ship.y < 0) ship.y = 0;
 
         if (TimeUtils.nanoTime() - lastDropTime > 1000000000) spawnAsteroids();
