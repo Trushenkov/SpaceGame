@@ -22,4 +22,7 @@
 
 ## Демонстрация игры
 
+![space-game gif](https://github.com/Trushenkov/SpaceGame/blob/master/android/assets/space-game.gif)
+
+
 <a href="https://youtu.be/iEKGbEThFn0">Смотреть видео</a>
