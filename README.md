@@ -21,4 +21,7 @@
 3. На экране <strong>"Game Over"</strong> при нажатии на экран, запускается заново игровой экран и начинается игра сначала.
 
 ## Демонстрация
+
+<iframe width="480" height="360" src="https://www.youtube.com/embed/xFa2_PVMeDQ" frameborder="0" allowfullscreen></iframe>
+
 <frame src="https://youtu.be/iEKGbEThFn0"></frame>
