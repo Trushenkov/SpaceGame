@@ -23,6 +23,7 @@ public class GameScreen implements Screen {
     //constants
     private static final int SCREEN_WIDTH = 480;
     private static final int SHIP_WIDTH = 64;
+    private static final int SCREEN_HEIGHT = 800;
 
     private SpaceGame spaceGame;
     private OrthographicCamera camera;
@@ -42,7 +43,7 @@ public class GameScreen implements Screen {
         background = new Texture("background2.jpg");
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 480, 800);
+        camera.setToOrtho(false, SCREEN_WIDTH, SCREEN_HEIGHT);
 
         meteoritImage = new Texture("meteorit.png");
         planeImage = new Texture("space_shuttle.png");
@@ -61,14 +62,12 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         camera.update();
 
         spaceGame.spriteBatch.setProjectionMatrix(camera.combined);
         spaceGame.spriteBatch.begin();
         spaceGame.spriteBatch.draw(background, 0, 0);
-        spaceGame.font.draw(spaceGame.spriteBatch, "Your time: " + time + " sec.", 10, 20);
+        spaceGame.font.draw(spaceGame.spriteBatch, "Time: " + time + " sec.", 10, 20);
         spaceGame.spriteBatch.draw(planeImage, ship.x, ship.y);
         for (Rectangle met : asteroids) {
             spaceGame.spriteBatch.draw(meteoritImage, met.x, met.y);
