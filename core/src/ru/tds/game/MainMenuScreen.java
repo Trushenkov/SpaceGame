@@ -61,9 +61,9 @@ public class MainMenuScreen implements Screen {
         textButtonStyle.font = black;
 
         //size of button
-        textButtonStyle.up.setMinWidth(200);
+        textButtonStyle.up.setMinWidth(300);
         textButtonStyle.up.setMinHeight(40);
-        textButtonStyle.down.setMinWidth(200);
+        textButtonStyle.down.setMinWidth(300);
         textButtonStyle.down.setMinHeight(40);
 
         buttonExit = new TextButton("EXIT", textButtonStyle);

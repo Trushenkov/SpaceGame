@@ -29,7 +29,7 @@ public class GameOverScreen implements Screen {
     private TextureAtlas atlas;
     private Skin skin;
     private Table table;
-    private TextButton buttonPlay, buttonExit;
+    private TextButton buttonTryAgain, buttonExit;
     private BitmapFont white, black;
     private Label heading;
     private Texture background;
@@ -71,20 +71,21 @@ public class GameOverScreen implements Screen {
         textButtonStyle.font = black;
 
         //size of button
-        textButtonStyle.up.setMinWidth(200);
+        textButtonStyle.up.setMinWidth(300);
         textButtonStyle.up.setMinHeight(40);
-        textButtonStyle.down.setMinWidth(200);
+        textButtonStyle.down.setMinWidth(300);
         textButtonStyle.down.setMinHeight(40);
 
+
         //button "Try Again"
-        buttonPlay = new TextButton("TRY AGAIN", textButtonStyle);
-        buttonPlay.addListener(new ClickListener() {
+        buttonTryAgain = new TextButton("TRY AGAIN", textButtonStyle);
+        buttonTryAgain.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 ((Game) Gdx.app.getApplicationListener()).setScreen(new GameScreen(spaceGame));
             }
         });
-        buttonPlay.pad(20);
+        buttonTryAgain.pad(20);
 
         //button "Main Menu"
         buttonExit = new TextButton("MENU", textButtonStyle);
@@ -104,9 +105,9 @@ public class GameOverScreen implements Screen {
         table.add(heading);
         table.row();
         table.getCell(heading).spaceBottom(50);
-        table.add(buttonPlay);
+        table.add(buttonTryAgain);
         table.row();
-        table.getCell(buttonPlay).spaceBottom(15);
+        table.getCell(buttonTryAgain).spaceBottom(15);
         table.add(buttonExit);
         table.setFillParent(true);
         table.background(new TextureRegionDrawable(new TextureRegion(background)));
