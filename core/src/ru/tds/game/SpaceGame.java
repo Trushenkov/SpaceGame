@@ -7,11 +7,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class SpaceGame extends Game {
 
-    public static final String TITLE = "Space Game v1.0";
+    static final String TITLE = "Space Game v1.0";
 
     SpriteBatch spriteBatch;
     BitmapFont font;
-    int timeOfPlayerLive = 0; //time from GameScreen
+    int timeOfPlayerLive; //time from GameScreen
 
     void setTimeOfPlayerLive(int timeOfPlayerLive) {
         this.timeOfPlayerLive = timeOfPlayerLive;
