@@ -4,7 +4,6 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -25,7 +24,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
  */
 public class MainMenuScreen implements Screen {
 
-    private final SpaceGame spaceGame;
     private Stage stage;
     private TextureAtlas atlas;
     private Skin skin;
@@ -36,7 +34,6 @@ public class MainMenuScreen implements Screen {
     private Texture background;
 
     MainMenuScreen(final SpaceGame spaceGame){
-        this.spaceGame = spaceGame;
         background = new Texture("background2.jpg");
         stage = new Stage();
 
