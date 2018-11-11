@@ -150,7 +150,6 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        spaceGame.dispose();
         background.dispose();
         meteoritImage.dispose();
         planeImage.dispose();
