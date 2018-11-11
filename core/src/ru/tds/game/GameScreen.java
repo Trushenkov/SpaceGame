@@ -2,7 +2,6 @@ package ru.tds.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
@@ -22,9 +21,18 @@ public class GameScreen implements Screen {
 
     //constants
     private static final int SCREEN_WIDTH = 480;
-    private static final int SHIP_WIDTH = 64;
     private static final int SCREEN_HEIGHT = 800;
+    private static final String BACKGROUND = "background2.jpg";
+    private static final String ASTEROID = "meteorit.png";
+    private static final String SHIP = "space_shuttle.png";
+    private static final int POSITION_SHIP_Y = 50;
+    private static final int WIDTH_SHIP = 64;
+    private static final int HEIGHT_SHIP = 64;
+    private static final int SPEED_ASTEROID = 300;
+    private static final int ASTEROID_WIDTH = 64;
+    private static final int ASTEROID_HEIGHT = 64;
 
+    //fields
     private SpaceGame spaceGame;
     private OrthographicCamera camera;
     private Texture meteoritImage;
@@ -40,19 +48,19 @@ public class GameScreen implements Screen {
     GameScreen(SpaceGame spaceGame){
 
         this.spaceGame = spaceGame;
-        background = new Texture("background2.jpg");
+        background = new Texture(BACKGROUND);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-        meteoritImage = new Texture("meteorit.png");
-        planeImage = new Texture("space_shuttle.png");
+        meteoritImage = new Texture(ASTEROID);
+        planeImage = new Texture(SHIP);
 
         ship = new Rectangle();
-        ship.x = SCREEN_WIDTH / 2 - SHIP_WIDTH / 2;
-        ship.y = 50;
-        ship.width = 64;
-        ship.height = 64;
+        ship.x = SCREEN_WIDTH / 2 - WIDTH_SHIP / 2;
+        ship.y = POSITION_SHIP_Y;
+        ship.width = WIDTH_SHIP;
+        ship.height = HEIGHT_SHIP;
 
         touchPosition = new Vector3();
 
@@ -79,14 +87,14 @@ public class GameScreen implements Screen {
             touchPosition.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(touchPosition);
 
-            ship.x = touchPosition.x - 64 / 2;
+            ship.x = touchPosition.x - WIDTH_SHIP / 2;
             ship.y = touchPosition.y;
         }
 
         //для того, чтобы не вылетать за пределы экрана
         if (ship.x < 0) ship.x = 0;
-        if (ship.x > 480 - 64) ship.x = 480 - 64;
-        if (ship.y > 800-64) ship.y = 800 - 64;
+        if (ship.x > SCREEN_WIDTH - WIDTH_SHIP) ship.x = SCREEN_WIDTH - WIDTH_SHIP;
+        if (ship.y > SCREEN_HEIGHT - HEIGHT_SHIP) ship.y = SCREEN_HEIGHT - HEIGHT_SHIP;
         if (ship.y < 0) ship.y = 0;
 
         if (TimeUtils.nanoTime() - lastDropTime > 1000000000) spawnAsteroids();
@@ -94,17 +102,20 @@ public class GameScreen implements Screen {
         Iterator<Rectangle> iterator = asteroids.iterator();
         while (iterator.hasNext()) {
             Rectangle rectangle = iterator.next();
-            rectangle.y -= 300 * Gdx.graphics.getDeltaTime();
-            if (rectangle.y + 64 < 0) iterator.remove();
+            rectangle.y -= SPEED_ASTEROID * Gdx.graphics.getDeltaTime();
+            if (rectangle.y + ASTEROID_HEIGHT < 0) iterator.remove();
             if (rectangle.overlaps(ship)) {
                 spaceGame.setScreen(new GameOverScreen(spaceGame));
                 dispose();
             }
-            if (time > 15){
+            if (time > 10){
                 rectangle.y -= 50 * Gdx.graphics.getDeltaTime();
             }
-            if (time > 25){
-                rectangle.y -= 50 * Gdx.graphics.getDeltaTime();
+            if (time > 20){
+                rectangle.y -= 100 * Gdx.graphics.getDeltaTime();
+            }
+            if (time > 30){
+                rectangle.y -= 100 * Gdx.graphics.getDeltaTime();
             }
         }
 
@@ -129,16 +140,19 @@ public class GameScreen implements Screen {
      */
     private void spawnAsteroids() {
         Rectangle asteroid = new Rectangle();
-        asteroid.x = MathUtils.random(0, 480 - 64);
-        asteroid.y = 800;
-        asteroid.width = 64;
-        asteroid.height = 64;
+        asteroid.x = MathUtils.random(0, SCREEN_WIDTH - ASTEROID_WIDTH);
+        asteroid.y = SCREEN_HEIGHT;
+        asteroid.width = ASTEROID_WIDTH;
+        asteroid.height = ASTEROID_HEIGHT;
         asteroids.add(asteroid);
         lastDropTime = TimeUtils.nanoTime();
     }
 
     @Override
     public void dispose() {
+        spaceGame.dispose();
+        background.dispose();
+        meteoritImage.dispose();
         planeImage.dispose();
         meteoritImage.dispose();
     }
