@@ -24,6 +24,17 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
  */
 public class GameOverScreen implements Screen {
 
+    //constants
+    private static final String BACKGROUND = "background2.jpg";
+    private static final String PACK_FILE = "ui/button.pack";
+    private static final String FONT_WHITE = "font/white.fnt";
+    private static final String FONT_BLACK = "font/black.fnt";
+    private static final String BUTTON_UP = "button.up";
+    private static final String BUTTON_DOWN = "button.down";
+    private static final String TRY_AGAIN = "TRY AGAIN";
+    private static final String MENU = "MENU";
+
+    //fields
     private SpaceGame spaceGame;
     private Stage stage;
     private TextureAtlas atlas;
@@ -33,8 +44,6 @@ public class GameOverScreen implements Screen {
     private BitmapFont white, black;
     private Label heading;
     private Texture background;
-
-//    private Texture backgroundImage;
 
     GameOverScreen(SpaceGame spaceGame) {
         this.spaceGame = spaceGame;
@@ -48,24 +57,24 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void show() {
-        background = new Texture("background2.jpg");
+        background = new Texture(BACKGROUND);
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
-        atlas = new TextureAtlas("ui/button.pack");
+        atlas = new TextureAtlas(PACK_FILE);
         skin = new Skin(atlas);
 
         table = new Table(skin);
         table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         //creating fonts
-        white = new BitmapFont(Gdx.files.internal("font/white.fnt"), false);
-        black = new BitmapFont(Gdx.files.internal("font/black.fnt"), false);
+        white = new BitmapFont(Gdx.files.internal(FONT_WHITE), false);
+        black = new BitmapFont(Gdx.files.internal(FONT_BLACK), false);
 
         //creating buttons
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.up = skin.getDrawable("button.up");
-        textButtonStyle.down = skin.getDrawable("button.down");
+        textButtonStyle.up = skin.getDrawable(BUTTON_UP);
+        textButtonStyle.down = skin.getDrawable(BUTTON_DOWN);
         textButtonStyle.pressedOffsetX = 1;
         textButtonStyle.pressedOffsetY = -1;
         textButtonStyle.font = black;
@@ -78,7 +87,7 @@ public class GameOverScreen implements Screen {
 
 
         //button "Try Again"
-        buttonTryAgain = new TextButton("TRY AGAIN", textButtonStyle);
+        buttonTryAgain = new TextButton(TRY_AGAIN, textButtonStyle);
         buttonTryAgain.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -88,7 +97,7 @@ public class GameOverScreen implements Screen {
         buttonTryAgain.pad(20);
 
         //button "Main Menu"
-        buttonExit = new TextButton("MENU", textButtonStyle);
+        buttonExit = new TextButton(MENU, textButtonStyle);
         buttonExit.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
