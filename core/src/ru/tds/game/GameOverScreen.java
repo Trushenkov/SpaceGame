@@ -71,10 +71,10 @@ public class GameOverScreen implements Screen {
         textButtonStyle.font = black;
 
         //size of button
-        textButtonStyle.up.setMinWidth(300);
-        textButtonStyle.up.setMinHeight(40);
-        textButtonStyle.down.setMinWidth(300);
-        textButtonStyle.down.setMinHeight(40);
+        textButtonStyle.up.setMinWidth(340);
+        textButtonStyle.up.setMinHeight(70);
+        textButtonStyle.down.setMinWidth(340);
+        textButtonStyle.down.setMinHeight(70);
 
 
         //button "Try Again"
@@ -102,13 +102,9 @@ public class GameOverScreen implements Screen {
         heading = new Label("Your time: " + spaceGame.timeOfPlayerLive + " sec.", headingStyle);
         heading.setFontScale((float) 1.5);
 
-        table.add(heading);
-        table.row();
-        table.getCell(heading).spaceBottom(50);
-        table.add(buttonTryAgain);
-        table.row();
-        table.getCell(buttonTryAgain).spaceBottom(15);
-        table.add(buttonExit);
+        table.add(heading).spaceBottom(50).row();
+        table.add(buttonTryAgain).spaceBottom(20).row();
+        table.add(buttonExit).spaceBottom(20);
         table.setFillParent(true);
         table.background(new TextureRegionDrawable(new TextureRegion(background)));
         stage.addActor(table);
@@ -117,7 +113,9 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        stage.getViewport().update(width, height,true);
+        table.setClip(true);
+        table.setSize(width,height);
     }
 
     @Override
