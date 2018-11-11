@@ -72,9 +72,9 @@ public class SettingsScreen implements Screen {
 
         //size of button
         textButtonStyle.up.setMinWidth(340);
-        textButtonStyle.up.setMinHeight(100);
+        textButtonStyle.up.setMinHeight(70);
         textButtonStyle.down.setMinWidth(340);
-        textButtonStyle.down.setMinHeight(100);
+        textButtonStyle.down.setMinHeight(70);
 
         buttonMenu = new TextButton("MAIN MENU", textButtonStyle);
         buttonMenu.addListener(new ClickListener() {
