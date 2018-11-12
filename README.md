@@ -32,7 +32,16 @@
 
 ## Демонстрация игры
 
-![space-game gif](https://github.com/Trushenkov/SpaceGame/blob/master/android/assets/space-game.gif)
+#### v1.0
+
+![space-game v1.0 gif](https://github.com/Trushenkov/SpaceGame/blob/master/android/assets/space-game.gif)
 
 
 <a href="https://youtu.be/iEKGbEThFn0">Смотреть видео</a>
+
+#### v.1.1
+
+![space-game v1.1 gif](https://github.com/Trushenkov/SpaceGame/blob/master/android/assets/space-game-2.gif)
+
+
+<a href="https://youtu.be/O94Dz51v8AM">Смотреть видео</a>
